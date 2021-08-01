@@ -12,6 +12,7 @@ import requests
 from PIL import Image
 import pathlib
 import tempfile
+import ffmpeg
 
 with tempfile.TemporaryDirectory() as tmpdir:
     st.error("このサイトはYoutubeの動画をダウンロードするサイトです")
@@ -142,9 +143,12 @@ with tempfile.TemporaryDirectory() as tmpdir:
             ydl = youtube_dl.YoutubeDL(ydl_opts)
             info_dict = ydl.extract_info(urlinput,download=True)
             st.write("Combines video and audio")
-            margepath = os.path.join(tmpdir,f"{dirid}.mp4")
+            margepath = os.path.join(tmpdir,f"{dirid}_out.mp4")
             try:
-                subprocess.run(f"ffmpeg -i {outpath} -i {audiopath} -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 {margepath}".split(" "))
+                instream1 = ffmpeg.input(outpath)
+                instream2 = ffmpeg.input(audiopath)
+                stream = ffmpeg.output(instream1, instream2, margepath, vcodec="copy", acodec="aac")
+                ffmpeg.run(stream)
             except:
                 import traceback
                 traceback.print_exc()
