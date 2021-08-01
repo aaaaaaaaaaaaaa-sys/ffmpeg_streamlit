@@ -19,6 +19,7 @@ with tempfile.TemporaryDirectory() as tmpdir:
     st.error("※ Never download illegally ※")
     st.error("※ 必ず自己責任で使用してください ※")
     st.error("※ Please be sure to use at your own risk ※")
+    st.error("エラーが出た場合もう一度実行するとダウンロード出来る可能性が有ります")
     try:
         dirid = str(uuid.uuid4())
         outpath = os.path.join(tmpdir,f"{dirid}.mp4")
