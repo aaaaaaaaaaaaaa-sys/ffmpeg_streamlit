@@ -2,3 +2,4 @@ youtube_dl
 requests
 pillow
 streamlit
+ffmpeg-python
