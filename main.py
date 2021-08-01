@@ -139,18 +139,13 @@ if donebtn:
         ydl = youtube_dl.YoutubeDL(ydl_opts)
         info_dict = ydl.extract_info(urlinput,download=True)
         st.write("Combines video and audio")
-        STREAMLIT_STATIC_PATH = pathlib.Path(st.__path__[0]) / 'static'
-        DOWNLOADS_PATH = (STREAMLIT_STATIC_PATH / "downloads")
-        if not DOWNLOADS_PATH.is_dir():
-            DOWNLOADS_PATH.mkdir()
-        margepath = str(DOWNLOADS_PATH / f"{str(uuid.uuid4())}.mp4")
+        margepath = str(f"temp\\{dirid}\\out.mp4")
         try:
             subprocess.run(f"ffmpeg -i {outpath} -i {audiopath} -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 {margepath}".split(" "))
         except:
             import traceback
             traceback.print_exc()
         st.video(margepath)
-        st.write(margepath)
         st.write(f"ダウンロードにかかった時間{int(time.time()-nowtime)}")
         try:
             shutil.rmtree(os.path.dirname(outpath))
