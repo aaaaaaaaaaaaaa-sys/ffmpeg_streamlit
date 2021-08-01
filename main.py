@@ -12,6 +12,11 @@ import requests
 from PIL import Image
 import pathlib
 
+st.error("このサイトはYoutubeの動画をダウンロードするサイトです")
+st.error("※ 違法なダウンロードは絶対にしないでください ※")
+st.error("※ Never download illegally ※")
+st.error("※ 必ず自己責任で使用してください ※")
+st.error("※ Please be sure to use at your own risk ※")
 try:
     dirid = str(uuid.uuid4())
     outpath = f"temp\\{dirid}\\temp.mp4"
